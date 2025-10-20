@@ -849,6 +849,10 @@ header .mega-menu.active {
   }
   .nav-mobile .mobile-section.open > strong::after { content: '−'; }
 
+  .nav-mobile .mobile-section.active > strong::after {
+    color: var(--color-btn-primary-text);
+  }
+
   .nav-mobile.active {
     transform: translateX(0);
     z-index: 1001;
@@ -883,7 +887,7 @@ header .mega-menu.active {
     padding:10px 0;
   }
   .nav-mobile ul ul li a {
-    padding: 10px 20px;
+    padding: 10px 15px;
     text-align: left;
     font-size: var(--font-size-lg);
     color: var(--color-text);
@@ -902,7 +906,7 @@ header .mega-menu.active {
     font-weight: var(--font-weight-semibold);
   }
 
-  .nav-mobile .mobile-section > strong > a,{
+  .nav-mobile .mobile-section > strong > a{
     padding:10px;
   }
 }
@@ -937,25 +941,46 @@ header .mega-menu.active {
   .nav.active + .nav-overlay {
     display: block;
   }
- .hamburger {
-  display: block;
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  width: 32px;
-  height: 32px;
-  z-index: 2001;
-  cursor: pointer;
-  background: none;
-  padding: 0;
-  border: none;
-}
+  .hamburger {
+    display: block;
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    width: 32px;
+    height: 24px;
+    z-index: 2001;
+    cursor: pointer;
+    background: none;
+    padding: 0;
+    border: none;
+  }
 
-.hamburger img {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+  .hamburger-box {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .hamburger-inner,
+  .hamburger-inner::before,
+  .hamburger-inner::after {
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-text);
+    border-radius: 4px;
+    position: absolute;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hamburger-inner { top: 50%; transform: translateY(-50%); }
+  .hamburger-inner::before, .hamburger-inner::after { content: ''; left: 0; }
+  .hamburger-inner::before { top: -10px; }
+  .hamburger-inner::after { bottom: -10px; }
+
+  .hamburger.is-active .hamburger-inner { transform: rotate(45deg); }
+  .hamburger.is-active .hamburger-inner::before { top: 0; transform: rotate(0); opacity: 0; }
+  .hamburger.is-active .hamburger-inner::after { bottom: 0; transform: rotate(-90deg); }
 
   .container {
     max-width: var(--container-md);
@@ -1145,7 +1170,7 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  padding: var(--space-0);
+  padding: var(--space-0) var(--space-16);
 /*
   padding: var(--space-8) var(--space-16);
   */
@@ -1169,7 +1194,7 @@ header {
   color: var(--color-text);
   z-index: 2000;
   height: 40px; /* 랜딩페이지 로고와 높이 통일 */
-  padding: 0 20px; /* 좌우 여백 추가 */
+  /* padding: 0 20px;   */
 }
 .logo a {
   height: 32px;
@@ -1401,6 +1426,8 @@ header {
   font-weight: var(--font-weight-bold);
   text-align: center;
   padding: var(--space-16);
+  margin-top: 50px; /* 헤더 높이만큼 여백 추가 */
+  margin-bottom: 20px;
 }
 
 /* Main Content */
@@ -1705,6 +1732,10 @@ aside.menu button.active {
 .landing-container {
   max-width: 1280px;
   margin: 0 auto;
+}
+
+/* 랜딩 페이지에만 좌우 패딩 적용 */
+.landing-page .landing-container {
   padding: 0 20px;
 }
 

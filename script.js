@@ -56,7 +56,8 @@ function renderMobileMenu(data) {
   data.forEach(section => {
     const sectionLink = section.link || '#';
     const sectionActive = (section.link === currentFile || (section.items && section.items.some(it => it.link === currentFile)));
-    html += `<li class="mobile-section${sectionActive ? ' active' : ''}"><strong><a href="${sectionLink}">${section.title}</a></strong><ul>`;
+    const openClass = sectionActive ? ' open' : '';
+    html += `<li class="mobile-section${sectionActive ? ' active' : ''}${openClass}"><strong><a href="${sectionLink}">${section.title}</a></strong><ul>`;
     section.items.forEach(item => {
       const itemLink = item.link || '#';
       const isActive = (itemLink === currentFile);
@@ -89,7 +90,7 @@ function initMegaMenu() {
   navItems.forEach((li) => {
     li.addEventListener('mouseenter', () => {
       if (!megaMenu) return;
-      megaMenu.innerHTML = '<div class="mega-menu-columns" style="margin:auto;display:flex; gap:0px; justify-content:flex-end; align-items:flex-start; max-width:1440px; padding:16px 0px;">' +
+      megaMenu.innerHTML = '<div class="mega-menu-columns" style="margin:auto;display:flex; gap:0px; justify-content:flex-end; align-items:flex-start; max-width:1440px; padding:16px 16px;">' +
         menuData.map(section =>
           `<div style="min-width:111px; text-align:center;"><ul class="submenu" style="margin:0; padding:0; list-style:none;">` +
           section.items.map(item => {
@@ -156,10 +157,12 @@ function initHamburgerMenu() {
   const overlay = document.querySelector('.nav-overlay');
   if (hamburger && navMobile && overlay) {
     hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('is-active');
       navMobile.classList.toggle('active');
       overlay.classList.toggle('active');
     });
     overlay.addEventListener('click', () => {
+      hamburger.classList.remove('is-active');
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
     });
