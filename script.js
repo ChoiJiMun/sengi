@@ -126,21 +126,25 @@ function initMegaMenu() {
     });
   });
 
-  megaMenu.addEventListener('mouseenter', () => {
-    menuOpen = true;
-    if (activeNavItem) activeNavItem.classList.add('active');
-  });
-  megaMenu.addEventListener('mouseleave', () => {
-    menuOpen = false;
-    megaMenu.classList.remove('active');
-    megaMenu.innerHTML = '';
-    if (activeNavItem) {
-      activeNavItem.classList.remove('active');
-      activeNavItem = null;
-    }
-  });
+  // megaMenu가 있는 페이지에서만 이벤트 리스너를 추가합니다.
+  if (megaMenu) {
+    megaMenu.addEventListener('mouseenter', () => {
+      menuOpen = true;
+      if (activeNavItem) activeNavItem.classList.add('active');
+    });
+    megaMenu.addEventListener('mouseleave', () => {
+      menuOpen = false;
+      megaMenu.classList.remove('active');
+      megaMenu.innerHTML = '';
+      if (activeNavItem) {
+        activeNavItem.classList.remove('active');
+        activeNavItem = null;
+      }
+    });
+  }
 
   const header = document.querySelector('header');
+  // index.html에는 header가 없으므로, header가 존재할 때만 이벤트 리스너를 추가합니다.
   if (header) {
     header.addEventListener('mouseleave', () => {
       if (megaMenu) {
@@ -320,27 +324,78 @@ document.addEventListener('DOMContentLoaded', () => {
   initHamburgerMenu();
   renderSidebarForCurrentSection();
   renderUnderConstructionBlocks();
-  autoSetSidebarActive();
   initTabFromHash();
+
+  // 현재 페이지에 맞는 사이드바 메뉴를 자동으로 활성화합니다.
+  // 이전에 정의된 `renderSidebarForCurrentSection` 함수가 이미 'active' 클래스를 버튼에 추가하므로
+  // 별도의 함수 호출은 필요 없습니다. 하지만 만약 동적으로 콘텐츠를 로드하는 경우를 대비하여
+  // 명시적으로 활성화 상태를 설정하는 로직을 여기에 둘 수 있습니다.
+  // 현재 구조에서는 `renderSidebarForCurrentSection`이 그 역할을 충분히 수행합니다.
+
+  // 만약 페이지 로드 시 특정 탭을 강제로 활성화해야 한다면 아래와 같은 코드를 사용할 수 있습니다.
+  // 예: const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+  // const section = menuData.find(s => s.items.some(it => it.link === currentFile));
+  // if (section) {
+  //   const itemIndex = section.items.findIndex(it => it.link === currentFile);
+  //   if (itemIndex !== -1) setSidebarActive(itemIndex);
+  // }
 
   // 직접 페이지 접근시 자동 탭 변경
   try {
     const file = window.location.pathname.split('/').pop() || 'index.html';
-    const flattenedItems = menuData.reduce((acc, section) => {
-      if (section.items && section.items.length) {
-        section.items.forEach(it => acc.push(it));
-      }
-      return acc;
-    }, []);
-    const matchedIndex = flattenedItems.findIndex(it => it.link === file);
-    if (matchedIndex >= 0) {
-      if (window.location.protocol === 'file:') {
-        setSidebarActive(matchedIndex);
-      } else {
-        changeTab(matchedIndex);
+    // index.html이 아닌 다른 페이지에서만 탭 콘텐츠를 로드합니다.
+    if (file !== 'index.html') {
+      const flattenedItems = menuData.reduce((acc, section) => {
+        if (section.items && section.items.length) {
+          section.items.forEach(it => acc.push(it));
+        }
+        return acc;
+      }, []);
+      const matchedIndex = flattenedItems.findIndex(it => it.link === file);
+      if (matchedIndex >= 0) {
+        // 로컬 파일에서 직접 열었을 때는 fetch가 작동하지 않으므로 사이드바만 활성화합니다.
+        if (window.location.protocol === 'file:') {
+          setSidebarActive(matchedIndex);
+        } else {
+          changeTab(matchedIndex);
+        }
       }
     }
   } catch (e) {
     console.warn('auto-load direct page fragment failed', e);
+  }
+
+  // Hero title text reveal effect
+  const heroTitleElement = document.getElementById('hero-title');
+  if (heroTitleElement) {
+    const text1 = "지속가능한 미래,";
+    const text2 = "재생원료인증으로 연결하다.";
+    const lines = [text1, text2];
+    const speed = 100; // 글자당 나타나는 속도 (ms)
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function revealText() {
+      if (lineIndex >= lines.length) {
+        return; // 모든 텍스트가 나타나면 종료
+      }
+
+      const currentLine = lines[lineIndex];
+      if (charIndex < currentLine.length) {
+        heroTitleElement.textContent += currentLine.charAt(charIndex);
+        charIndex++;
+        setTimeout(revealText, speed);
+      } else {
+        // 한 줄이 끝나면 다음 줄로
+        lineIndex++;
+        charIndex = 0;
+        if (lineIndex < lines.length) {
+          heroTitleElement.textContent += '\n'; // 줄바꿈 문자 추가
+          setTimeout(revealText, speed * 3); // 줄바꿈 후 잠시 딜레이
+        }
+      }
+    }
+
+    revealText(); // 효과 시작
   }
 });
