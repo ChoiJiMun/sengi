@@ -1418,6 +1418,7 @@ header {
   background:  
       linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), /* 검은색 반투명 오버레이 */
       url('./img/hero_system.jpeg') no-repeat center center;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1429,6 +1430,24 @@ header {
   margin-top: 50px; /* 헤더 높이만큼 여백 추가 */
   margin-bottom: 20px;
 }
+
+/* Hero background images per section */
+.section-certification-system .hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?q=80&w=1470');
+}
+.section-procedures .hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1470');
+}
+.section-continuity .hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1471');
+}
+.section-status .hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=1374');
+}
+.section-information .hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?q=80&w=1470');
+}
+
 
 /* Main Content */
 .content-wrap {
@@ -1794,6 +1813,12 @@ aside.menu button.active {
   font-size: 1.2rem;
   color: var(--color-text-secondary);
   margin-bottom: 30px;
+}
+
+.landing-hero p.hero-subtitle{
+  
+  color: var(--color-teal-500);
+ 
 }
  
 

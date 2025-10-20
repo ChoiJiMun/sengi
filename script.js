@@ -1,6 +1,7 @@
 // 메뉴 데이터 정의
 const menuData = [
   {
+    id: "certification-system",
     title: "재생원료인증",
     link: "overview.html",
     items: [
@@ -11,6 +12,7 @@ const menuData = [
     ]
   },
   {
+    id: "procedures",
     title: "인증절차",
     link: "application.html",
     items: [
@@ -21,6 +23,7 @@ const menuData = [
     ]
   },
   {
+    id: "continuity",
     title: "연속성 관리",
     link: "continuity-overview.html",
     items: [
@@ -29,6 +32,7 @@ const menuData = [
     ]
   },
   {
+    id: "status",
     title: "인증현황",
     link: "certified-companies.html",
     items: [
@@ -38,6 +42,7 @@ const menuData = [
     ]
   },
   {
+    id: "information",
     title: "정보마당",
     link: "notices.html",
     items: [
@@ -275,12 +280,30 @@ function changeTab(index) {
   }
 }
 
+// 현재 섹션에 따라 body에 클래스 추가
+function setBodyClassForSection() {
+  const currentFile = window.location.pathname.split('/').pop() || 'index.html';
+  if (currentFile === 'index.html') return;
+
+  const currentSection = menuData.find(s => 
+    s.link === currentFile || (s.items && s.items.some(it => it.link === currentFile))
+  );
+
+  if (currentSection && currentSection.id) {
+    document.body.classList.add(`section-${currentSection.id}`);
+  }
+}
+
 
 
 // 초기화: DOM 완료 후 실행
 document.addEventListener('DOMContentLoaded', () => {
   renderMobileMenu(menuData);
   renderPCMenu(menuData);
+  
+  // Add section-specific class to body
+  setBodyClassForSection();
+
   initMegaMenu();
   initHamburgerMenu();
   renderSidebarForCurrentSection();
