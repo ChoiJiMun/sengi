@@ -163,6 +163,18 @@ function initHamburgerMenu() {
       navMobile.classList.remove('active');
       overlay.classList.remove('active');
     });
+
+    // Accordion menu logic
+    navMobile.addEventListener('click', function(e) {
+      const target = e.target;
+      const sectionHeader = target.closest('.mobile-section > strong');
+
+      if (sectionHeader) {
+        e.preventDefault(); // Prevent link navigation
+        const parentSection = sectionHeader.parentElement;
+        parentSection.classList.toggle('open');
+      }
+    });
   }
 }
 
