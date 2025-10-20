@@ -294,6 +294,18 @@ function setBodyClassForSection() {
   }
 }
 
+// "콘텐츠 준비 중" 블록 렌더링
+function renderUnderConstructionBlocks() {
+  const placeholders = document.querySelectorAll('.content-under-construction');
+  if (placeholders.length > 0) {
+    const underConstructionHTML = `
+      <img src="./img/Continuity.svg" alt="준비중 아이콘">
+      <h2>콘텐츠 준비 중입니다.</h2>
+      <p style="font-size: 1.1rem; color: var(--color-text-secondary);">보다 나은 정보를 제공하기 위해 페이지를 준비하고 있습니다.<br>빠른 시일 내에 찾아뵙겠습니다.</p>
+    `;
+    placeholders.forEach(el => el.innerHTML = underConstructionHTML);
+  }
+}
 
 
 // 초기화: DOM 완료 후 실행
@@ -307,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMegaMenu();
   initHamburgerMenu();
   renderSidebarForCurrentSection();
+  renderUnderConstructionBlocks();
   autoSetSidebarActive();
   initTabFromHash();
 

@@ -2119,6 +2119,26 @@ aside.menu button.active {
 }
 }
 
+/* Under Construction Placeholder Style */
+.content-under-construction {
+  text-align: center;
+  padding: 80px 20px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content-under-construction img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 24px;
+  opacity: 0.6;
+}
+.content-under-construction h2 {
+  font-size: 1.8rem;
+}
+
 /* Promo Cards Section */
 .landing-promo {
   padding: 60px 0;
