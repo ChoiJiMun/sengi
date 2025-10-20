@@ -1433,7 +1433,7 @@ header {
 
 /* Hero background images per section */
 .section-certification-system .hero {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?q=80&w=1470');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('./img/overviewhero.png');
 }
 .section-procedures .hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.292)), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1470');
