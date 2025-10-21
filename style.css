@@ -1964,7 +1964,7 @@ aside.menu button.active {
 }
 
 /* 화면 크기에 따른 반응형 그리드 설정 */
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .landing-features .landing-container {
     grid-template-columns: repeat(3, 1fr);
   }
