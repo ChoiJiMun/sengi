@@ -1913,16 +1913,10 @@ aside.menu button.active {
 
 .landing-features .landing-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* 데스크톱에서는 5개 컬럼, 화면 크기에 따라 점차 줄어들도록 설정 */
+  grid-template-columns: repeat(5, 1fr);
   gap: 30px;
   text-align: center;
-}
-
-/* 화면이 992px보다 작을 때 버튼을 한 줄에 하나씩 표시 */
-@media (max-width: 992px) {
-  .landing-features .landing-container {
-    grid-template-columns: 1fr;
-  }
 }
 
 .feature-card {
@@ -1967,6 +1961,19 @@ aside.menu button.active {
 .feature-card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
+}
+
+/* 화면 크기에 따른 반응형 그리드 설정 */
+@media (max-width: 1200px) {
+  .landing-features .landing-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-features .landing-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .feature-card p {
@@ -2115,6 +2122,9 @@ aside.menu button.active {
   .feature-card h3 {
     font-size: 1.1rem; /* 텍스트 크기 조정 */
     margin-bottom: 0;
+  }
+  .landing-features .landing-container {
+    grid-template-columns: 1fr; /* 모바일에서는 한 줄에 하나씩 */
   }
   .landing-features .landing-container { 
   gap: 12px;  
